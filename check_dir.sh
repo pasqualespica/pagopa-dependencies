@@ -4,13 +4,22 @@ VERBOSE=0
 usage=NOK
 isEqual=1
 
+help="
+    $0 [-h] [-v] [-f <file_name> | -e ext_files] <source-path-dir> <destination-path-dir> \n
+    -h : help 
+    -v : verbose
+    -f : file name - useful if you to check differce among a single and specific file
+    -e : file extensions [Default : *.wsdl] use to find all files with a specific extension into  <source-path-dir>  and <destination-path-dir> folders
+    <source-path-dir> : path where script start to find files with ext_files to compare vs files (with same name) present into <destination-path-dir>
+    "
+
 # Check parameter
 while (( "$#" )); do
     case "$1" in
         -h|--help)
             echo ""
             echo "Usage :"
-            echo " $0 [-h] [-v] [-f <file_name> | -e ext_files] <source-path-dir> <destination-path-dir>"
+            echo "$help"
             echo ""
             exit 0
         ;;
@@ -69,9 +78,9 @@ then
     
     comuni=`comm -12 <(sort file1.txt) <(sort file2.txt)`
     
-    if [ $VERBOSE == 1 ]; then
+    if [ $VERBOSE == 1 ] && [ -z "$MY_FILE" ]; then
         
-        echo "Start ..."
+        echo ""
         
         echo ">>>>>>>>>>>>>>>>>>>>"
         echo ">>> common files >>>"
@@ -97,16 +106,20 @@ then
     # remove TMP file
     rm -f file1.txt file2.txt
     
+    if [ ! -z "$MY_FILE" ]; then
+        comuni=($MY_FILE)
+    fi
+
     for entry in $comuni
     do
         # echo $entry1
-        file1=`find $SRC -name $entry`
-        file2=`find $DST -name $entry`
+        file1=`find $SRC -name $entry | head -n 1` 
+        file2=`find $DST -name $entry | head -n 1`
         
         # echo "diff $file1 $file2"
-        num_diff=`diff $file1 $file2 -U 0 | grep -v ^@ | wc -l`
-        
+        num_diff=`diff $file1 $file2 -U 0 | grep -v ^@ | wc -l`        
         differenze=${num_diff//[[:blank:]]/}
+
         if [ $differenze != "0" ]; then
             isEqual=0
         fi
@@ -123,14 +136,16 @@ then
     
     if [ $isEqual == 1 ]; then
         echo "$SRC and $DST are equal."
+        exit 0
     else
         echo "$SRC and $DST are different !!!"
+        exit 1
     fi
     echo "Done !"
     
 else
     echo ""
     echo "Bad usage !!!"
-    echo " $0 [-h] [-v] [-f <file_name> | -e ext_files] <source-path-dir> <destination-path-dir>"
+    echo "$help"
     echo ""
 fi
