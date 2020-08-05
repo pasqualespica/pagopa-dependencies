@@ -36,7 +36,7 @@ La seguente lista contiene tutte le dipendenze necessarie alla compilazione del 
 
 Lo script `check_dir.sh` prende in input due cartelle e verifica che i files con lo stesso nome (e estensione) siano uguali altrimenti mostra le differenze.
 
-Lo scopo principale e' quello di vedere le differenze dei files `wsdl` e `xsd` presenti nei repo [pagopa-api](https://github.com/pagopa/pagopa-api) e [pagopa-nodo4-common-xml]([pagopa-api](https://github.com/pagopa/pagopa-nodo4-common-xml)) che e' possibile sapere digitando da terminale :
+Lo scopo principale e' quello di vedere le differenze dei files `wsdl` e `xsd` presenti nei repo [pagopa-api](https://github.com/pagopa/pagopa-api) e [pagopa-nodo4-common-xml](pagopa-api](https://github.com/pagopa/pagopa-nodo4-common-xml)) che e' possibile sapere digitando da terminale :
 
 > **NOTA** *si suppone che in locale si sia fatto il clone dei repo `pagopa-api` e `pagopa-nodo4-common-xml`*
 ```
@@ -89,7 +89,7 @@ differences for PspPerNodo.wsdl are : 34
 ```
 
 Tale script sara' aggiunto in un workflow di [GitHub-Actions](https://github.com/actions)
-al fine di garantire l'allineamento dei due repo sopra citati, fino a quando ci sara' necessita di averli imn ambienti separati.
+al fine di garantire l'allineamento dei due repo sopra citati, fino a quando ci sara' necessita di averli in ambienti separati.
 
 
 
