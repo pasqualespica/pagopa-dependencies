@@ -88,24 +88,24 @@ then
 
         echo ""
 
-        echo ">>>>>>>>>>>>>>>>>>>>"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
         echo ">>> common files >>>"
-        echo ">>>>>>>>>>>>>>>>>>>>"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
         comm -12 <(sort file1.txt) <(sort file2.txt)
 
-        echo ">>>>>>>>>>>>>>>>>>>>"
-        echo ">>> only into $DST"
-        echo ">>>>>>>>>>>>>>>>>>>>"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
+        echo ">>> only into $DST possibly DELETED files !!!"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
         comm -13 <(sort file1.txt) <(sort file2.txt)
 
-        echo ">>>>>>>>>>>>>>>>>>>>"
-        echo ">>> only into $SRC"
-        echo ">>>>>>>>>>>>>>>>>>>>"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
+        echo ">>> only into $SRC possibly NEW files"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
         comm -23 <(sort file1.txt) <(sort file2.txt)
 
-        echo ">>>>>>>>>>>>>>>>>>>>"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
         echo ">>> DEFAULT filter $DEFAULT_EXT applied"
-        echo ">>>>>>>>>>>>>>>>>>>>"
+        # echo ">>>>>>>>>>>>>>>>>>>>"
 
     fi
 
@@ -146,6 +146,7 @@ then
 
         # align
         if [ $ALIGN == 1 ] && [ $differenze != "0" ]; then
+            echo "cp $file2 $file1"
             cp $file2 $file1
         fi
 
